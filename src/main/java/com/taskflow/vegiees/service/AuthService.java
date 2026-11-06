@@ -37,6 +37,7 @@ public class AuthService {
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setPhoneNumber(request.getPhoneNumber());
 
         User savedUser = userRepository.save(user);
 
@@ -45,6 +46,7 @@ public class AuthService {
         response.setId(savedUser.getId());
         response.setName(savedUser.getName());
         response.setEmail(savedUser.getEmail());
+        response.setPhoneNumber(savedUser.getPhoneNumber());
         response.setMessage("Registration Successful");
 
         return response;

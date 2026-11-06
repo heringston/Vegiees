@@ -5,6 +5,16 @@ public class RegisterResponse {
     private Long id;
     private String name;
     private String email;
+    private String message;
+    private String phoneNumber;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getMessage() {
         return message;
@@ -38,6 +48,6 @@ public class RegisterResponse {
         this.id = id;
     }
 
-    private String message;
+
 
 }

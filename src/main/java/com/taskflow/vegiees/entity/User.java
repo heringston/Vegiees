@@ -19,6 +19,24 @@ public class User {
     @Column(nullable = false , unique = true)
     private String password;
 
+    @Column(name = "phone_number" , length = 15)
+    private String phoneNumber;
+
+    @Column(name = "address_line", length = 300)
+    private String addressLine;
+
+    @Column(length = 100)
+    private String city;
+
+    @Column(length = 100)
+    private String district;
+
+    @Column(length = 100)
+    private String state;
+
+    @Column(length = 100)
+    private String pincode;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -49,5 +67,54 @@ public class User {
 
     public String getPassword(){
         return this.password;
+    }
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddressLine() {
+        return addressLine;
+    }
+
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
     }
 }

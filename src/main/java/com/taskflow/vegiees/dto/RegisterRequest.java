@@ -2,6 +2,7 @@ package com.taskflow.vegiees.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class RegisterRequest {
@@ -18,10 +19,18 @@ public class RegisterRequest {
     @Size(min = 8 , message = "Password must contain minimum 8 characters")
     private String password;
 
-    public RegisterRequest(String name , String email , String password){
+    @NotBlank(message = "Phone Number is required")
+    @Pattern(
+            regexp = "^\\+?[0-9]{10,15}$",
+            message = "Enter a valid Phone Number"
+    )
+    private String phoneNumber;
+
+    public RegisterRequest(String name , String email , String password , String phoneNumber){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -30,6 +39,14 @@ public class RegisterRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
