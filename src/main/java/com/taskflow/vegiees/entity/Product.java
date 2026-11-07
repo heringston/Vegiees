@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -28,14 +30,14 @@ public class Product {
     @Column(length = 1000)
     private String description;
 
-    @Column(nullable = false , precision = 20 , scale = 2)
+    @Column(nullable = false , precision = 10 , scale = 2)
     private BigDecimal quantity;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false , length = 20)
     private QuantityUnit quantityUnit;
 
-    @Column(nullable = false , precision = 20 , scale = 2)
+    @Column(nullable = false , precision = 10 , scale = 2)
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
