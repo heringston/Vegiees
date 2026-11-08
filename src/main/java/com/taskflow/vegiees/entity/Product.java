@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -73,6 +75,13 @@ public class Product {
     @UpdateTimestamp
     @Column(name = "updated_at" , nullable = false)
     private LocalDateTime updatedAt;
+
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ProductImage> images = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -218,6 +227,7 @@ public class Product {
         this.updatedAt = updatedAt;
     }
 
-
-
+    public List<ProductImage> getImages() {
+        return images;
+    }
 }
