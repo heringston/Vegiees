@@ -15,22 +15,18 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final CurrentUserService currentUserService;
 
-    public ProductService(ProductRepository productRepository, UserRepository userRepository) {
+    public ProductService(ProductRepository productRepository, UserRepository userRepository, CurrentUserService currentUserService) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.currentUserService = currentUserService;
     }
 
-    private User getAuthenticatedUser(){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        return (User) authentication.getPrincipal();
-    }
 
     public ProductResponse createProduct(CreateProductRequest request){
 
-        User authenticatedUser = getAuthenticatedUser();
+        User authenticatedUser = currentUserService.getAuthenticatedUser();
 
         User seller  = userRepository.getReferenceById(
                 authenticatedUser.getId()
