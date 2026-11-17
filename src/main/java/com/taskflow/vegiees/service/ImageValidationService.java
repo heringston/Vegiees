@@ -1,21 +1,16 @@
 package com.taskflow.vegiees.service;
 
 import com.taskflow.vegiees.entity.ImageType;
+import com.taskflow.vegiees.entity.ProductImage;
 import com.taskflow.vegiees.exception.InvalidImageException;
-import com.taskflow.vegiees.repository.ProductImageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class ImageValidationService {
-
-    private final ProductImageRepository productImageRepository;
-
-    public ImageValidationService(ProductImageRepository productImageRepository){
-        this.productImageRepository = productImageRepository;
-    }
 
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
     private static final int MAX_PRODUCT_IMAGES = 5;
@@ -44,20 +39,23 @@ public class ImageValidationService {
         }
     }
 
-    public void validateImageCount(Long productId , ImageType imageType){
+    public void validateListingImages(List<MultipartFile> productImages ,
+                                     MultipartFile growingSourceImage){
 
-        long existingCount = productImageRepository.countByProductIdAndImageType(
-                productId , imageType
-        );
-
-        int maxAllowed = switch(imageType){
-            case PRODUCT -> MAX_PRODUCT_IMAGES;
-            case GROWING_SOURCE -> MAX_GROWING_SOURCE_IMAGES;
-        };
-
-        if(existingCount >= maxAllowed){
-            throw new InvalidImageException("Maximum number of " + imageType + "images uploaded");
+        if(productImages == null || productImages.isEmpty()){
+            throw new InvalidImageException("Minimum 1 Product Image is required");
         }
 
+        if(productImages.size() > 5){
+            throw new InvalidImageException("Maximum 5 Product Images are allowed");
+        }
+
+        for(MultipartFile image : productImages){
+            validate(image);
+        }
+
+        if(growingSourceImage != null){
+            validate(growingSourceImage);
+        }
     }
 }
