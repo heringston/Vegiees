@@ -230,4 +230,9 @@ public class Product {
     public List<ProductImage> getImages() {
         return images;
     }
+
+    public void addImage(ProductImage image) {
+        images.add(image);
+        image.setProduct(this);
+    }
 }
