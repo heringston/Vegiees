@@ -1,5 +1,6 @@
 package com.taskflow.vegiees.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 import com.taskflow.vegiees.dto.ErrorResponse;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -80,5 +83,25 @@ public class GlobalExceptionHandler {
         response.setMessage(ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<ErrorResponse> handleMissingRequestPart(MissingServletRequestPartException ex){
+
+        ErrorResponse response = new ErrorResponse();
+
+        response.setMessage("Required multipart fied is missinng : " + ex.getRequestPartName());
+
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorResponse> handleMaxUploadSizeExceeded(
+            MaxUploadSizeExceededException ex) {
+
+        ErrorResponse response = new ErrorResponse();
+        response.setMessage("Image size must not exceed 5 MB");
+
+        return ResponseEntity.badRequest().body(response);
     }
 }

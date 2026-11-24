@@ -8,6 +8,8 @@ import com.taskflow.vegiees.entity.QuantityUnit;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductResponse {
 
@@ -34,6 +36,8 @@ public class ProductResponse {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private List<ProductImageResponse> images = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -169,5 +173,13 @@ public class ProductResponse {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<ProductImageResponse> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImageResponse> images) {
+        this.images = images;
     }
 }
